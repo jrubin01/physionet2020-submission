@@ -81,7 +81,7 @@ def load_12ECG_model():
             kernel_size=kernel_size, dropout=dropout)
         if flag_useCuda:
             models[i].load_state_dict(torch.load(db_in+modelName+\
-                "/trained_model.pt"))
+                "/trained_model.pt", map_location="cuda:0"))
         else:
             models[i].load_state_dict(torch.load(db_in+modelName+\
                 "/trained_model.pt", map_location= lambda storage, loc: storage))
