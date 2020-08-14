@@ -84,13 +84,13 @@ def train_classifier(src_path, output_directory, tst_fold):
         tst_df = tst_df[:5]
 
     if padding == 'zero':
-        trnloader = DataLoader(ECGWindowPaddingDataset(trn_df, window, nb_windows=1, src_path=src_path), batch_size=batch_size, shuffle=True, num_workers=8)
-        valloader = DataLoader(ECGWindowPaddingDataset(val_df, window, nb_windows=10, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=8)
-        tstloader = DataLoader(ECGWindowPaddingDataset(tst_df, window, nb_windows=20, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=8)
+        trnloader = DataLoader(ECGWindowPaddingDataset(trn_df, window, nb_windows=1, src_path=src_path), batch_size=batch_size, shuffle=True, num_workers=0)
+        valloader = DataLoader(ECGWindowPaddingDataset(val_df, window, nb_windows=10, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=0)
+        tstloader = DataLoader(ECGWindowPaddingDataset(tst_df, window, nb_windows=20, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=0)
     elif padding == 'qrs':
-        trnloader = DataLoader(ECGWindowAlignedDataset(trn_df, window, nb_windows=1, src_path=src_path), batch_size=batch_size, shuffle=True, num_workers=8)
-        valloader = DataLoader(ECGWindowAlignedDataset(val_df, window, nb_windows=10, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=8)
-        tstloader = DataLoader(ECGWindowAlignedDataset(tst_df, window, nb_windows=20, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=8)
+        trnloader = DataLoader(ECGWindowAlignedDataset(trn_df, window, nb_windows=1, src_path=src_path), batch_size=batch_size, shuffle=True, num_workers=0)
+        valloader = DataLoader(ECGWindowAlignedDataset(val_df, window, nb_windows=10, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=0)
+        tstloader = DataLoader(ECGWindowAlignedDataset(tst_df, window, nb_windows=20, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=0)
 
     optimizer = NoamOpt(d_model, 1, 4000, torch.optim.Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9))
 
@@ -123,11 +123,11 @@ def train_classifier(src_path, output_directory, tst_fold):
     model = load_best_model(str(f'{fold_loc}/{model_name}.tar'), model)
 
     if padding == 'zero':
-        valloader = DataLoader(ECGWindowPaddingDataset(val_df, window, nb_windows=30, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=8)
-        tstloader = DataLoader(ECGWindowPaddingDataset(tst_df, window, nb_windows=30, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=8)
+        valloader = DataLoader(ECGWindowPaddingDataset(val_df, window, nb_windows=30, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=0)
+        tstloader = DataLoader(ECGWindowPaddingDataset(tst_df, window, nb_windows=30, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=0)
     elif padding == 'qrs':
-        valloader = DataLoader(ECGWindowAlignedDataset(val_df, window, nb_windows=30, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=8)
-        tstloader = DataLoader(ECGWindowAlignedDataset(tst_df, window, nb_windows=30, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=8)
+        valloader = DataLoader(ECGWindowAlignedDataset(val_df, window, nb_windows=30, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=0)
+        tstloader = DataLoader(ECGWindowAlignedDataset(tst_df, window, nb_windows=30, src_path=src_path), batch_size=batch_size, shuffle=False, num_workers=0)
 
     probs, lbls = get_probs(model, valloader)
 
