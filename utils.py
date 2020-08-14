@@ -61,7 +61,7 @@ char2dir = {
 
 # Load all features dataframe
 data_df = pd.read_csv('records_stratified_10_folds_v2.csv', index_col=0)
-all_feats = pd.concat([pd.read_csv(f, index_col=0) for f in list(Path('feats/').glob(f'*/*all_feats_ch_{ch_idx}.csv'))])    
+all_feats = pd.concat([pd.read_csv(f, index_col=0) for f in list(Path('feats/').glob(f'*/*all_feats_ch_{ch_idx}.zip'))])    
 
 leads = ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
 lead2idx = dict(zip(leads, range(len(leads))))
