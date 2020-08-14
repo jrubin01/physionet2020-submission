@@ -51,12 +51,12 @@ classes = sorted(['270492004', '164889003', '164890007', '426627000', '713427006
                   '59931005', '17338001'])
 
 char2dir = {
-        'Q' : 'Training_CPSC',
-        'A' : 'Training_CPSC-Extra',
-        'E' : 'Training_Georgia',
-        'S' : 'Training_PTB',
-        'H' : 'Training_PTB-XL',
-        'I' : 'Training_StPetersburg'
+        'Q' : 'Training_2',
+        'A' : 'Training_WFDB',
+        'E' : 'WFDB',
+        'S' : 'WFDB',
+        'H' : 'WFDB',
+        'I' : 'WFDB'
     }
 
 # Load all features dataframe
