@@ -15,8 +15,6 @@ from biosppy.signals import ecg
 from biosppy.signals.tools import filter_signal
 
 import torch
-import torchvision
-import torchvision.transforms as transforms
 from torch.autograd import Variable
 import torch.nn as nn
 import torch.nn.functional as F

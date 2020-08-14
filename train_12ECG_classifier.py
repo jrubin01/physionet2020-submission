@@ -23,9 +23,6 @@ from eval.evaluate_12ECG_score import evaluate_12ECG_score, compute_auc
 from eval.evaluate_12ECG_score import compute_beta_measures, load_weights, compute_challenge_metric
 
 import torch
-import torchvision
-import torchvision.transforms as transforms
-
 from torch.autograd import Variable
 import torch.nn as nn
 import torch.nn.functional as F
