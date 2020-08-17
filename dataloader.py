@@ -38,7 +38,7 @@ class ECGWindowAlignedDataset(Dataset):
     def __getitem__(self, idx):
         # Get data
         row = self.df.iloc[idx]
-        filename = str(self.src_path/char2dir[row.Patient[0]]/(row.Patient + '.hea'))
+        filename = str(self.src_path/(row.Patient + '.hea'))
         data, hdr = load_challenge_data(filename)
         seq_len = data.shape[-1] # get the length of the ecg sequence
         
@@ -119,7 +119,7 @@ class ECGWindowPaddingDataset(Dataset):
     def __getitem__(self, idx):
         # Get data
         row = self.df.iloc[idx]
-        filename = str(self.src_path/char2dir[row.Patient[0]]/(row.Patient + '.hea'))
+        filename = str(self.src_path/(row.Patient + '.hea'))
         data, hdr = load_challenge_data(filename)
         seq_len = data.shape[-1] # get the length of the ecg sequence
         
