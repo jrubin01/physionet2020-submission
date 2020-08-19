@@ -44,7 +44,8 @@ nb_demo = 2
 nb_feats = 20
 
 model_name = 'ctn'
-folds = [3, 4, 6]
+#folds = [3, 4, 6]
+folds = [4]
 
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 

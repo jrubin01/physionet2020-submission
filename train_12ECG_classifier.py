@@ -42,9 +42,9 @@ best_auroc = 0.
 
 def train_12ECG_classifier(input_directory, output_directory):
     src_path = Path(input_directory)
-    train_classifier(src_path, output_directory, 3)
+    #train_classifier(src_path, output_directory, 3)
     train_classifier(src_path, output_directory, 4)
-    train_classifier(src_path, output_directory, 6)
+    #train_classifier(src_path, output_directory, 6)
 
 def train_classifier(src_path, output_directory, tst_fold):
     global patience_count, best_auroc
@@ -57,7 +57,8 @@ def train_classifier(src_path, output_directory, tst_fold):
 
     # Train, validation and test fold splits
     val_fold = (tst_fold - 1) % 10
-    trn_fold = np.delete(np.arange(10), [val_fold, tst_fold])
+    #trn_fold = np.delete(np.arange(10), [val_fold, tst_fold])
+    trn_fold = np.delete(np.arange(10), [val_fold])
 
     print('trn:', trn_fold)
     print('val:', val_fold)
@@ -170,25 +171,6 @@ def train_classifier(src_path, output_directory, tst_fold):
     print('Gbeta_measure:', g_beta_measure)
     print('Geometric Mean:', geom_mean)
     print('Challenge_metric:', challenge_metric)    
-
-    # Test
-    probs, lbls = get_probs(model, tstloader)
-    preds = (probs > thrs).astype(np.int)
-
-    f_beta_measure, g_beta_measure = compute_beta_measures(lbls, preds, beta)
-    geom_mean = np.sqrt(f_beta_measure*g_beta_measure)
-    challenge_metric = compute_challenge_metric(load_weights(weights_file, classes), 
-                                                lbls, preds, classes, normal_class)
-
-    with open(fold_loc/f'tst_{tst_fold}_results.csv', 'w') as f:
-        f.write(f'Fbeta_measure, Gbeta_measure, geom_mean, challenge_metric\n')
-        f.write(f'{f_beta_measure}, {g_beta_measure}, {geom_mean}, {challenge_metric}\n')
-        
-    print(f'Test metrics, fold {tst_fold}:')
-    print('Fbeta_measure:', f_beta_measure)
-    print('Gbeta_measure:', g_beta_measure)
-    print('Geometric Mean:', geom_mean)
-    print('Challenge_metric:', challenge_metric)
 
 def train(epoch, model, trnloader, optimizer):
     model.train()
